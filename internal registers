@@ -1,0 +1,16 @@
+reg [3:0] state, next_state;
+reg [1:0] cmd_mode, next_cmd_mode;
+reg [1:0] cmd_cycle, next_cmd_cycle;
+reg [2:0] intr_index, next_intr_index;
+reg [2:0] intr_ptr, next_intr_ptr;
+reg [2:0] prior_table_next [0:7];
+reg [2:0] prior_table [0:7];
+reg oe, next_oe;
+reg [7:0] intr_bus, next_intr_bus;
+reg intr_out, next_intr_out;
+wire clk;
+myclk m1(clock,clk);
+// Counter for loop
+integer i;
+wire intr_rq;
+interrupt_masking(clk,mask,intr_rq_1,intr_rq);
