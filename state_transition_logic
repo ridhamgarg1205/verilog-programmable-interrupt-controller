@@ -1,0 +1,29 @@
+always @(posedge clk or posedge reset) begin
+if (reset) begin
+// Initialize registers on reset
+state <= S_Reset;
+cmd_mode <= 2'b00;
+cmd_cycle <= 2'b00;
+oe <= 1'b0;
+intr_bus <= 8'bzzzzzzzz;
+intr_out <= 1'b0;
+intr_index <= 3'b000;
+intr_ptr <= 3'b000;
+for (i = 0; i < 8; i = i + 1) begin
+prior_table[i] <= 3'b000;
+end
+end else begin
+// Update registers based on next values
+state <= next_state;
+cmd_mode <= next_cmd_mode;
+cmd_cycle <= next_cmd_cycle;
+oe <= next_oe;
+intr_bus <= next_intr_bus;
+intr_out <= next_intr_out;
+intr_index <= next_intr_index;
+intr_ptr <= next_intr_ptr;
+for (i = 0; i < 8; i = i + 1) begin
+prior_table[i] <= prior_table_next[i];
+end
+end
+end
