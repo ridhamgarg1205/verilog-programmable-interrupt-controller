@@ -1,0 +1,11 @@
+module InterruptController (
+input wire clock, // Clock
+input wire reset, // Reset
+input mask //mask input
+input wire [7:0] intr_rq_1, // Interrupt request
+inout wire [7:0] data_bus, // Bidirectional data bus for communication
+between processor and hardware
+input wire acknowledgement, // Acknowledgement from the processor
+output wire interrupt_out, // Interrupt to processor
+output wire enable // Bus output enable
+);
