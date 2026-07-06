@@ -1,0 +1,25 @@
+always @* begin
+next_state = state;
+next_cmd_mode = cmd_mode;
+next_cmd_cycle = cmd_cycle;
+next_oe = oe;
+next_intr_out = intr_out;
+next_intr_bus = intr_bus;
+next_intr_index = intr_index;
+next_intr_ptr = intr_ptr;
+for (i = 0; i < 8; i = i + 1) begin
+prior_table_next[i] = prior_table[i];
+end
+case (state)
+// Reset state
+S_Reset: begin
+cmd_mode <= 2'b00;
+cmd_cycle <= 2'b00;
+intr_index <= 3'b000;
+intr_ptr <= 3'b000;
+for (i = 0; i < 8; i = i + 1) begin
+prior_table_next[i] = 3'b000;
+end
+oe <= 1'b0;
+next_state = S_GetCommands;
+end
